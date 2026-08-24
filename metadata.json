@@ -1,0 +1,6 @@
+{
+  "name": "Supabase Analytics Dashboard",
+  "description": "A responsive SaaS business analytics dashboard built with Bootstrap 5, Vanilla JavaScript, Chart.js, and Supabase client integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
