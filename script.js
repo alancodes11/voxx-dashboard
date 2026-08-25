@@ -73,32 +73,33 @@ function initSupabaseClient() {
   const savedUrl = localStorage.getItem("VOYX_SUPABASE_URL") || SUPABASE_URL;
   const savedKey = localStorage.getItem("VOYX_SUPABASE_KEY") || SUPABASE_ANON_KEY;
 
-  const isConfigured = 
-    savedUrl && 
-    savedKey && 
-    savedUrl !== "YOUR_SUPABASE_PROJECT_URL" && 
-    savedKey !== "YOUR_SUPABASE_ANON_KEY" &&
-    savedUrl.startsWith("http");
+  const isConfigured =
+    SUPABASE_URL &&
+    SUPABASE_ANON_KEY &&
+    SUPABASE_URL.startsWith("http");
 
-  if (isConfigured && window.supabase) {
+if (isConfigured && window.supabase) {
     try {
-      supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-      isConnected = true;
-      updateConnectionBanner(true, savedUrl);
-      loadAllDashboardData();
+        supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+        isConnected = true;
+        updateConnectionBanner(true, SUPABASE_URL);
+        loadAllDashboardData();
+
+        console.log("Supabase connected successfully!");
     } catch (err) {
-      console.error("Error initializing Supabase client:", err);
-      isConnected = false;
-      updateConnectionBanner(false);
+        console.error("Error initializing Supabase client:", err);
+        isConnected = false;
+        updateConnectionBanner(false);
+        renderPlaceholderMetrics();
     }
-  } else {
+} else {
     isConnected = false;
     updateConnectionBanner(false);
     renderPlaceholderMetrics();
-  }
 }
 
 /**
