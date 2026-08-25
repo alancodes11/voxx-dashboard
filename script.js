@@ -82,7 +82,10 @@ function initSupabaseClient() {
 
   if (isConfigured && window.supabase) {
     try {
-      supabaseClient = window.supabase.createClient(savedUrl, savedKey);
+      supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
       isConnected = true;
       updateConnectionBanner(true, savedUrl);
       loadAllDashboardData();
