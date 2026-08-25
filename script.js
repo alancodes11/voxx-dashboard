@@ -8,7 +8,7 @@
 // Replace these values with your project credentials
 // ===============================
 const SUPABASE_URL = "https://rqulvpciliclkduuvkhq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_lBmeedzUE4YFeI_Bi04cmA_23F61CB"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxdWx2cGNpbGljbGtkdXV2a2hxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MzM0MzgsImV4cCI6MjA5OTQwOTQzOH0.3db4vQ123_67LA08hcCfXlc8OI7srOkasNSEMjRitjo"
 // Application State
 let supabaseClient = null;
 let isConnected = false;
