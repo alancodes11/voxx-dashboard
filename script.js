@@ -69,38 +69,44 @@ function initDateDisplay() {
  * Initialize Supabase Client if credentials are provided
  */
 function initSupabaseClient() {
-  // Check if credentials exist in script constants or local storage override
-  const savedUrl = localStorage.getItem("VOYX_SUPABASE_URL") || SUPABASE_URL;
-  const savedKey = localStorage.getItem("VOYX_SUPABASE_KEY") || SUPABASE_ANON_KEY;
+  const url = SUPABASE_URL;
+  const key = SUPABASE_ANON_KEY;
 
   const isConfigured =
-    SUPABASE_URL &&
-    SUPABASE_ANON_KEY &&
-    SUPABASE_URL.startsWith("http");
+    url &&
+    key &&
+    url.startsWith("http");
 
-if (isConfigured && window.supabase) {
+  if (isConfigured && window.supabase) {
     try {
-        supabaseClient = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+      supabaseClient = window.supabase.createClient(url, key);
 
-        isConnected = true;
-        updateConnectionBanner(true, SUPABASE_URL);
-        loadAllDashboardData();
+      isConnected = true;
 
-        console.log("Supabase connected successfully!");
+      updateConnectionBanner(true, url);
+
+      console.log("✅ Supabase connected successfully!");
+      console.log("Supabase URL:", url);
+
+      loadAllDashboardData();
+
     } catch (err) {
-        console.error("Error initializing Supabase client:", err);
-        isConnected = false;
-        updateConnectionBanner(false);
-        renderPlaceholderMetrics();
+      console.error("❌ Error initializing Supabase:", err);
+
+      isConnected = false;
+      updateConnectionBanner(false);
+      renderPlaceholderMetrics();
     }
-} else {
+
+  } else {
+    console.error("❌ Supabase credentials or library missing.");
+
     isConnected = false;
     updateConnectionBanner(false);
     renderPlaceholderMetrics();
+  }
 }
+        
 
 /**
  * Update the UI Connection Banner
