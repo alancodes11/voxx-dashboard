@@ -68,27 +68,34 @@ function initDateDisplay() {
 /**
  * Initialize Supabase Client if credentials are provided
  */
-function initSupabaseClient() {
+async initSupabaseClient() {
   const url = SUPABASE_URL;
   const key = SUPABASE_ANON_KEY;
 
-  const isConfigured =
-    url &&
-    key &&
-    url.startsWith("http");
+  supabaseClient = window.supabase.createClient(url, key);
 
-  if (isConfigured && window.supabase) {
-    try {
-      supabaseClient = window.supabase.createClient(url, key);
+console.log("✅ Supabase client created successfully!");
 
-      isConnected = true;
+const { data: testData, error: testError } = await supabaseClient
+  .from("orders")
+  .select("*")
+  .limit(1);
 
-      updateConnectionBanner(true, url);
+if (testError) {
+  console.error("❌ SUPABASE DATABASE ERROR:", testError);
+} else {
+  console.log("✅ SUPABASE DATABASE CONNECTION WORKS!");
+  console.log("Test data:", testData);
+}
 
-      console.log("✅ Supabase connected successfully!");
-      console.log("Supabase URL:", url);
+isConnected = true;
 
-      loadAllDashboardData();
+updateConnectionBanner(true, url);
+
+console.log("✅ Supabase connected successfully!");
+console.log("Supabase URL:", url);
+
+loadAllDashboardData();
 
     } catch (err) {
       console.error("❌ Error initializing Supabase:", err);
